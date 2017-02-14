@@ -22,9 +22,7 @@ package org.elasticsearch.plugin.analysis.vi;
 import org.apache.lucene.analysis.Analyzer;
 import org.elasticsearch.index.analysis.AnalyzerProvider;
 import org.elasticsearch.index.analysis.SmartVietnameseAnalyzerProvider;
-import org.elasticsearch.index.analysis.SmartVietnameseNoOpTokenFilterFactory;
 import org.elasticsearch.index.analysis.SmartVietnameseTokenizerTokenizerFactory;
-import org.elasticsearch.index.analysis.TokenFilterFactory;
 import org.elasticsearch.index.analysis.TokenizerFactory;
 import org.elasticsearch.indices.analysis.AnalysisModule.AnalysisProvider;
 import org.elasticsearch.plugins.AnalysisPlugin;
@@ -36,23 +34,16 @@ import java.util.Map;
 import static java.util.Collections.singletonMap;
 
 public class AnalysisSmartVietnamesePlugin extends Plugin implements AnalysisPlugin {
-    @Override
-    public Map<String, AnalysisProvider<TokenFilterFactory>> getTokenFilters() {
-        // This is a noop token filter; it's here for backwards compat before we had "vi_tokenizer"
-        return singletonMap("vi_word", SmartVietnameseNoOpTokenFilterFactory::new);
-    }
 
     @Override
     public Map<String, AnalysisProvider<TokenizerFactory>> getTokenizers() {
         Map<String, AnalysisProvider<TokenizerFactory>> extra = new HashMap<>();
         extra.put("vi_tokenizer", SmartVietnameseTokenizerTokenizerFactory::new);
-        // This is an alias to "vi_tokenizer"; it's here for backwards compat
-        extra.put("vi_sentence", SmartVietnameseTokenizerTokenizerFactory::new);
         return extra;
     }
 
     @Override
     public Map<String, AnalysisProvider<AnalyzerProvider<? extends Analyzer>>> getAnalyzers() {
-        return singletonMap("vi", SmartVietnameseAnalyzerProvider::new);
+        return singletonMap("vi_analyzer", SmartVietnameseAnalyzerProvider::new);
     }
 }

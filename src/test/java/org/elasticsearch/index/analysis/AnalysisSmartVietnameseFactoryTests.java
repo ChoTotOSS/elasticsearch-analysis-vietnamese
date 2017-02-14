@@ -19,19 +19,18 @@
 
 package org.elasticsearch.index.analysis;
 
-import org.apache.lucene.analysis.TokenStream;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.env.Environment;
-import org.elasticsearch.index.IndexSettings;
+import org.elasticsearch.AnalysisFactoryTestCase;
 
-public class SmartVietnameseNoOpTokenFilterFactory extends AbstractTokenFilterFactory {
+import java.util.HashMap;
+import java.util.Map;
 
-    public SmartVietnameseNoOpTokenFilterFactory(IndexSettings indexSettings, Environment environment, String name, Settings settings) {
-        super(indexSettings, name, settings);
-    }
+public class AnalysisSmartVietnameseFactoryTests extends AnalysisFactoryTestCase {
 
     @Override
-    public TokenStream create(TokenStream tokenStream) {
-        return tokenStream;
+    protected Map<String, Class<?>> getTokenizers() {
+        Map<String, Class<?>> tokenizers = new HashMap<>(super.getTokenizers());
+        tokenizers.put("vi_analyzer", SmartVietnameseTokenizerTokenizerFactory.class);
+        return tokenizers;
     }
+
 }
