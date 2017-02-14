@@ -16,12 +16,13 @@ mvn clean package
 bin/plugin install file:target/releases/elasticsearch-analysis-vietnamese-5.2.0.zip
 ```
 
-*Notes*: To build the plugin you need to clone and build the [vn-nlp-libararies](https://github.com/duydo/vn-nlp-libraries). The plugin uses  [Lê Hồng Phương](http://mim.hus.vnu.edu.vn/phuonglh/) vnTokenizer library. Thanks thầy Lê Hồng Phương for great contribution.
+*Notes*: To build the plugin you need to clone and build the [vn-nlp-libararies](https://github.com/ChoTotOSS/vn-nlp-libraries.git). The plugin uses  [Lê Hồng Phương](http://mim.hus.vnu.edu.vn/phuonglh/) vnTokenizer library. Thanks thầy Lê Hồng Phương for great contribution.
+
 
 |Vietnamese Analysis Plugin|Elasticsearch|
 |---|---|
 | master|5.2.0|
-| master|2.4.1|
+| 2.4.1|2.4.1|
 | 2.4.1|2.4.1|
 | 2.4.0|2.4.0|
 | 2.3.5|2.3.5|
@@ -40,6 +41,41 @@ bin/plugin install file:target/releases/elasticsearch-analysis-vietnamese-5.2.0.
 | 0.1.1|1.4+|
 | 0.1|1.3|
 
+###
+
+## Build guide
+
+In case you want to customize vn-nlp or this plugin (add more stopword or token)
+
+### Presequisite:
+[Maven](http://maven.apache.org/download.cgi)
+
+### Build vn-nlp-libraries
+```bash
+git clone https://github.com/ChoTotOSS/vn-nlp-libraries.git
+cd vn-nlp-libraries
+mvn compile
+mvn package
+```
+
+### Build elasticsearch-vietnamese-analysis
+```bash
+git clone https://github.com/ChoTotOSS/elasticsearch-analysis-vietnamese.git
+cd elasticsearch-analysis-vietnamese
+mvn compile
+mvn package
+```
+There will be a file in target/releases/elasticsearch-analysis-vietnamese-5.2.0.zip
+Because ES 5.x requires plugins file should be under folder name `elasticsearch`. So we need an extra step:
+
+``` bash
+mkdir elasticsearch && mv elasticsearch-analysis-vietnamese-5.2.0.zip elasticsearch
+cd elasticsearch && unzip elasticsearch-analysis-vietnamese-5.2.0.zip
+rm elasticsearch-analysis-vietnamese-5.2.0.zip && cd ..
+zip -r elasticsearch-analysis-vietnamese-5.2.0.zip elasticsearch
+```
+
+###
 
 ## User guide
 
