@@ -41,8 +41,6 @@ bin/plugin install file:target/releases/elasticsearch-analysis-vietnamese-5.2.0.
 | 0.1.1|1.4+|
 | 0.1|1.3|
 
-###
-
 ## Build guide
 
 In case you want to customize vn-nlp or this plugin (add more stopword or token)
@@ -75,7 +73,6 @@ rm elasticsearch-analysis-vietnamese-5.2.0.zip && cd ..
 zip -r elasticsearch-analysis-vietnamese-5.2.0.zip elasticsearch
 ```
 
-###
 
 ## User guide
 
@@ -84,6 +81,15 @@ The plugin provides the `vi_analyzer` analyzer and `vi_tokenizer` tokenizer.
 The `vi_analyzer` is built using the `vi_tokenizer` tokenizer, the `lowercase` and `stop` filter.
 
  The analyzer analyzes `"công nghệ thông tin Việt Nam"` into `"công nghệ thông tin"` and `"việt nam"` tokens.
+
+## Thanks to
+- [Lê Hồng Phương](http://mim.hus.vnu.edu.vn/phuonglh/) for his VnTokenizer library
+- [JetBrains](https://www.jetbrains.com) has provided a free license for their great tool: [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+## Authors
+
+This work is based on the original repository https://github.com/duydo/elasticsearch-analysis-vietnamese/
+whose author is [Duy Do](https://github.com/duydo/).
 
 License
 -------
